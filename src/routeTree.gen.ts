@@ -16,11 +16,14 @@ import { Route as SavedRouteImport } from './routes/saved'
 import { Route as ReportRouteImport } from './routes/report'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as HelpRouteImport } from './routes/help'
+import { Route as FinderRouteImport } from './routes/finder'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServiceIdRouteImport } from './routes/service.$id'
 import { Route as PlanIdRouteImport } from './routes/plan.$id'
 import { Route as ServiceIdIntakeRouteImport } from './routes/service.$id_.intake'
+import { Route as PlanIdPrintRouteImport } from './routes/plan.$id.print'
 
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
@@ -57,6 +60,16 @@ const HelpRoute = HelpRouteImport.update({
   path: '/help',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FinderRoute = FinderRouteImport.update({
+  id: '/finder',
+  path: '/finder',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -82,10 +95,17 @@ const ServiceIdIntakeRoute = ServiceIdIntakeRouteImport.update({
   path: '/service/$id/intake',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlanIdPrintRoute = PlanIdPrintRouteImport.update({
+  id: '/print',
+  path: '/print',
+  getParentRoute: () => PlanIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/finder': typeof FinderRoute
   '/help': typeof HelpRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
@@ -93,13 +113,16 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/suggest': typeof SuggestRoute
   '/terms': typeof TermsRoute
-  '/plan/$id': typeof PlanIdRoute
+  '/plan/$id': typeof PlanIdRouteWithChildren
   '/service/$id': typeof ServiceIdRoute
+  '/plan/$id/print': typeof PlanIdPrintRoute
   '/service/$id/intake': typeof ServiceIdIntakeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/finder': typeof FinderRoute
   '/help': typeof HelpRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
@@ -107,14 +130,17 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/suggest': typeof SuggestRoute
   '/terms': typeof TermsRoute
-  '/plan/$id': typeof PlanIdRoute
+  '/plan/$id': typeof PlanIdRouteWithChildren
   '/service/$id': typeof ServiceIdRoute
+  '/plan/$id/print': typeof PlanIdPrintRoute
   '/service/$id/intake': typeof ServiceIdIntakeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
+  '/finder': typeof FinderRoute
   '/help': typeof HelpRoute
   '/privacy': typeof PrivacyRoute
   '/report': typeof ReportRoute
@@ -122,8 +148,9 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/suggest': typeof SuggestRoute
   '/terms': typeof TermsRoute
-  '/plan/$id': typeof PlanIdRoute
+  '/plan/$id': typeof PlanIdRouteWithChildren
   '/service/$id': typeof ServiceIdRoute
+  '/plan/$id/print': typeof PlanIdPrintRoute
   '/service/$id_/intake': typeof ServiceIdIntakeRoute
 }
 export interface FileRouteTypes {
@@ -131,6 +158,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
+    | '/finder'
     | '/help'
     | '/privacy'
     | '/report'
@@ -140,11 +169,14 @@ export interface FileRouteTypes {
     | '/terms'
     | '/plan/$id'
     | '/service/$id'
+    | '/plan/$id/print'
     | '/service/$id/intake'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/admin'
+    | '/finder'
     | '/help'
     | '/privacy'
     | '/report'
@@ -154,11 +186,14 @@ export interface FileRouteTypes {
     | '/terms'
     | '/plan/$id'
     | '/service/$id'
+    | '/plan/$id/print'
     | '/service/$id/intake'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
+    | '/finder'
     | '/help'
     | '/privacy'
     | '/report'
@@ -168,12 +203,15 @@ export interface FileRouteTypes {
     | '/terms'
     | '/plan/$id'
     | '/service/$id'
+    | '/plan/$id/print'
     | '/service/$id_/intake'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
+  FinderRoute: typeof FinderRoute
   HelpRoute: typeof HelpRoute
   PrivacyRoute: typeof PrivacyRoute
   ReportRoute: typeof ReportRoute
@@ -181,7 +219,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SuggestRoute: typeof SuggestRoute
   TermsRoute: typeof TermsRoute
-  PlanIdRoute: typeof PlanIdRoute
+  PlanIdRoute: typeof PlanIdRouteWithChildren
   ServiceIdRoute: typeof ServiceIdRoute
   ServiceIdIntakeRoute: typeof ServiceIdIntakeRoute
 }
@@ -237,6 +275,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HelpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/finder': {
+      id: '/finder'
+      path: '/finder'
+      fullPath: '/finder'
+      preLoaderRoute: typeof FinderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -272,12 +324,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiceIdIntakeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/plan/$id/print': {
+      id: '/plan/$id/print'
+      path: '/print'
+      fullPath: '/plan/$id/print'
+      preLoaderRoute: typeof PlanIdPrintRouteImport
+      parentRoute: typeof PlanIdRoute
+    }
   }
 }
+
+interface PlanIdRouteChildren {
+  PlanIdPrintRoute: typeof PlanIdPrintRoute
+}
+
+const PlanIdRouteChildren: PlanIdRouteChildren = {
+  PlanIdPrintRoute: PlanIdPrintRoute,
+}
+
+const PlanIdRouteWithChildren =
+  PlanIdRoute._addFileChildren(PlanIdRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
+  FinderRoute: FinderRoute,
   HelpRoute: HelpRoute,
   PrivacyRoute: PrivacyRoute,
   ReportRoute: ReportRoute,
@@ -285,10 +357,20 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SuggestRoute: SuggestRoute,
   TermsRoute: TermsRoute,
-  PlanIdRoute: PlanIdRoute,
+  PlanIdRoute: PlanIdRouteWithChildren,
   ServiceIdRoute: ServiceIdRoute,
   ServiceIdIntakeRoute: ServiceIdIntakeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
