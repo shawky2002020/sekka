@@ -1,0 +1,6 @@
+{
+  "name": "Sekka",
+  "description": "Your ultimate Egyptian government service and trip planner, simplifying complex administrative procedures, documentation requirements, and step-by-step guidelines in Arabic and English.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
