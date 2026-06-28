@@ -40,10 +40,10 @@ function Home() {
             دليل مساعد — مش جهة حكومية
           </div>
           <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-foreground leading-tight">
-            خلّص ورقك من أول مرة
+            نظام منع الفشل قبل أي مشوار حكومي
           </h1>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            سِكّة بتقولك الأوراق المطلوبة، الخطوات، الختم، الوقت المتوقع، والتحذيرات قبل ما تروح أي مصلحة.
+            وفّر أيام الإجازات الضايعة لموظفينك أو لنفسك. سِكّة بتجهزلك الأوراق المطلوبة، الخطوات، والتحذيرات قبل ما تروح أي مصلحة.
           </p>
 
           <form onSubmit={onSubmit} className="mt-8 mx-auto max-w-xl">
@@ -69,6 +69,18 @@ function Home() {
             </div>
           </form>
         </div>
+      </section>
+
+      {/* B2B & B2C CTAs */}
+      <section className="mx-auto max-w-5xl px-4 md:px-6 py-4 flex flex-col sm:flex-row justify-center gap-4">
+        <Link to="/b2b" className="flex-1 flex flex-col items-center justify-center gap-2 p-6 rounded-2xl border-2 border-primary bg-primary/5 hover:bg-primary/10 transition text-center">
+          <span className="text-xl font-bold text-primary">للشركات و HR</span>
+          <span className="text-sm text-muted-foreground">جهّز موظفينك قبل ما ينزلوا عشان ميضيعوش أيام شغل على الفاضي.</span>
+        </Link>
+        <Link to="/pricing" className="flex-1 flex flex-col items-center justify-center gap-2 p-6 rounded-2xl border border-border bg-card hover:bg-muted/50 transition text-center">
+          <span className="text-xl font-bold text-foreground">للأفراد</span>
+          <span className="text-sm text-muted-foreground">اكتشف الأوراق المطلوبة ووفر مشاوير رايح جاي. مجاناً.</span>
+        </Link>
       </section>
 
       {/* What you get */}

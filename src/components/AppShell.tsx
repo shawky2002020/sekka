@@ -28,8 +28,9 @@ function Header() {
           <NavLink to="/">الرئيسية</NavLink>
           <NavLink to="/services">الخدمات</NavLink>
           <NavLink to="/saved">خططي</NavLink>
+          <NavLink to="/b2b">للشركات (HR)</NavLink>
+          <NavLink to="/pricing">الأسعار</NavLink>
           <NavLink to="/report">بلّغنا</NavLink>
-          <NavLink to="/about">عن سِكّة</NavLink>
         </nav>
         <Link
           to="/services"
@@ -59,10 +60,11 @@ function NavLink({ to, children }: { to: string; children: ReactNode }) {
 function MobileBottomNav() {
   return (
     <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-card/95 backdrop-blur">
-      <div className="grid grid-cols-4 text-[11px]">
+      <div className="grid grid-cols-5 text-[11px]">
         <BottomItem to="/" icon={<Home className="h-5 w-5" />} label="الرئيسية" exact />
         <BottomItem to="/services" icon={<Search className="h-5 w-5" />} label="الخدمات" />
-        <BottomItem to="/saved" icon={<Bookmark className="h-5 w-5" />} label="خططي" />
+        <BottomItem to="/b2b" icon={<Bookmark className="h-5 w-5" />} label="للشركات" />
+        <BottomItem to="/pricing" icon={<MessageSquareWarning className="h-5 w-5" />} label="الأسعار" />
         <BottomItem to="/report" icon={<MessageSquareWarning className="h-5 w-5" />} label="بلّغنا" />
       </div>
     </nav>
@@ -95,6 +97,8 @@ function Footer() {
         <nav className="grid grid-cols-2 gap-x-8 gap-y-2 text-xs text-muted-foreground">
           <Link to="/about" className="hover:text-foreground">عن سِكّة</Link>
           <Link to="/help" className="hover:text-foreground">المساعدة</Link>
+          <Link to="/b2b" className="hover:text-foreground">للشركات</Link>
+          <Link to="/pricing" className="hover:text-foreground">الأسعار</Link>
           <Link to="/privacy" className="hover:text-foreground">الخصوصية</Link>
           <Link to="/terms" className="hover:text-foreground">الشروط</Link>
           <Link to="/report" className="hover:text-foreground">بلّغ عن معلومة</Link>
